@@ -21,14 +21,5 @@ extension ResultsView {
                 rolls = []
             }
         }
-
-        func save() {
-            do {
-                let data = try JSONEncoder().encode(rolls)
-                try data.write(to: savePath, options: [.atomic, .completeFileProtection])
-            } catch {
-                print("Unable to save data.")
-            }
-        }
     }
 }

@@ -9,9 +9,38 @@ import SwiftUI
 
 struct ResultsView: View {
     @StateObject private var viewModel = ViewModel()
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            Group {
+                if (viewModel.rolls.isEmpty) {
+                    VStack {
+                        Image(systemName: "die.face.3.fill")
+                            .padding()
+                            .foregroundColor(.secondary)
+                        Text("You haven't rolled any dice yet")
+                            .foregroundColor(.secondary)
+                    }
+                } else {
+                    List(viewModel.rolls) { roll in
+                        VStack(alignment: .leading) {
+                            Text("Roll created at \(roll.date.formatted(date: .abbreviated, time: .shortened))")
+                            Text("Total: \(roll.total)")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                }
+            }
+            .toolbar {
+                Button {
+                    dismiss()
+                } label: {
+                    Text("OK")
+                }
+            }
+        }
     }
 }
 

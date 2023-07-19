@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    // 1. Create and store a single instance of the ViewRoll class.
+    @StateObject var currentRoll = ViewRoll()
+    
     @StateObject private var viewModel = ViewModel()
-    @State private var lastRoll: Roll = Roll.example
     
     @State private var showingChangeDiceView = false
     @State private var showingResultsView = false
@@ -21,10 +23,10 @@ struct ContentView: View {
                 Spacer()
 
                 HStack {
-                    ForEach(lastRoll.dice) { die in
+                    ForEach(currentRoll.roll.dice) { die in
                         ZStack {
                             RoundedRectangle(cornerRadius: 25)
-                                .frame(maxHeight: 180)
+                                .frame(maxWidth: 180, maxHeight: 180)
                                 .foregroundColor(.blue)
                             
                             Text(String(die.result))
@@ -38,7 +40,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Button {
-                    lastRoll.rollAllDice()
+                    currentRoll.roll.rollAllDice()
                 } label: {
                     Text("Roll!")
                         .frame(maxWidth: .infinity, maxHeight: 60)
@@ -48,7 +50,7 @@ struct ContentView: View {
                         .padding()
                 }
                 
-                Text("Total: \(lastRoll.total)")
+                Text("Total: \(currentRoll.roll.total)")
                     .font(.system(size: 30, weight: .medium, design: .none))
                     .padding()
                 
@@ -78,6 +80,7 @@ struct ContentView: View {
                 ChangeDiceView()
             }
         }
+        .environmentObject(currentRoll) // 2. Post the property into the SwiftUI environment.
     }
 }
 

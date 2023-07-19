@@ -37,8 +37,15 @@ struct Roll: Identifiable, Codable {
     static let example = Roll(
         dice: [
             Die(sides: 6),
-            Die(sides: 6),
             Die(sides: 6)
         ]
     )
+}
+
+@MainActor class ViewRoll: ObservableObject {
+    @Published var roll = Roll.example
+    
+    func update(with newRoll: Roll) {
+        roll = newRoll
+    }
 }
