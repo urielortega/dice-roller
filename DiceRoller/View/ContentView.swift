@@ -21,13 +21,13 @@ struct ContentView: View {
                 Spacer()
 
                 HStack {
-                    ForEach(lastRoll.dice) { dice in
+                    ForEach(lastRoll.dice) { die in
                         ZStack {
                             RoundedRectangle(cornerRadius: 25)
                                 .frame(maxHeight: 180)
                                 .foregroundColor(.blue)
                             
-                            Text(String(dice.result))
+                            Text(String(die.result))
                                 .font(.system(size: 50, weight: .bold, design: .rounded))
                                 .foregroundColor(.white)
                         }

@@ -8,7 +8,7 @@
 import Foundation
 
 struct Roll: Identifiable, Codable {
-    struct Dice: Identifiable, Codable {
+    struct Die: Identifiable, Codable {
         var id = UUID()
         var sides: Int
         var result: Int = 1
@@ -21,7 +21,7 @@ struct Roll: Identifiable, Codable {
     var id = UUID()
     var date: Date = .now
     
-    var dice: [Dice]
+    var dice: [Die]
     
     var total: Int {
         dice.reduce(0) { $0 + $1.result } // Make a sum of each die result, starting with 0.
@@ -36,9 +36,9 @@ struct Roll: Identifiable, Codable {
     
     static let example = Roll(
         dice: [
-            Dice(sides: 6),
-            Dice(sides: 6),
-            Dice(sides: 6)
+            Die(sides: 6),
+            Die(sides: 6),
+            Die(sides: 6)
         ]
     )
 }
