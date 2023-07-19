@@ -38,7 +38,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Button {
-                    // TODO: Roll all the dice of lastRoll.
+                    lastRoll.rollAllDice()
                 } label: {
                     Text("Roll!")
                         .frame(maxWidth: .infinity, maxHeight: 60)
