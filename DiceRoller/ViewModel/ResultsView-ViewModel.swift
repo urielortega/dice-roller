@@ -22,6 +22,11 @@ extension ResultsView {
             }
         }
         
+        func deleteAllRolls() {
+            rolls.removeAll()
+            save()
+        }
+        
         func save() {
             do {
                 let data = try JSONEncoder().encode(rolls)

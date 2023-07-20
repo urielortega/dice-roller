@@ -35,6 +35,7 @@ struct ContentView: View {
                                 .font(.system(size: 50, weight: .bold, design: .rounded))
                                 .foregroundColor(.white)
                         }
+                        .accessibilityLabel("This die has the number \(die.result)")
                     }
                 }
                 .padding()
@@ -61,10 +62,13 @@ struct ContentView: View {
                         .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.30), radius: 10)
                         .padding()
                 }
+                .accessibilityLabel("Roll the dice!")
+                .accessibilityHint("Your current result is \(currentRoll.roll.total)")
                 
                 Text("Total: \(currentRoll.roll.total)")
                     .font(.system(size: 30, weight: .medium, design: .none))
                     .padding()
+                    .accessibilityLabel("Your result is \(currentRoll.roll.total)")
                 
                 Spacer()
             }

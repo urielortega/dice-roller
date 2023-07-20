@@ -10,6 +10,7 @@ import SwiftUI
 struct ResultsView: View {
     @StateObject private var viewModel = ViewModel()
     @Environment(\.dismiss) var dismiss
+    @Environment(\.accessibilityVoiceOverEnabled) var voiceOverEnabled
 
     var body: some View {
         NavigationStack {
@@ -19,28 +20,47 @@ struct ResultsView: View {
                         Image(systemName: "die.face.3.fill")
                             .padding()
                             .foregroundColor(.secondary)
+                            .accessibilityHidden(true)
                         Text("Roll to see your results here!")
                             .foregroundColor(.secondary)
                     }
+                    .accessibilityElement()
+                    .accessibilityLabel("Roll to see your results here!")
                 } else {
                     List {
                         ForEach(viewModel.rolls) { roll in
                             VStack(alignment: .leading) {
                                 Text("Roll created at \(roll.date.formatted(date: .abbreviated, time: .shortened))")
-                                Text("Total: \(roll.total)")
+                                Text("Result: \(roll.total)")
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
+                            .accessibilityElement()
+                            .accessibilityLabel("\(roll.date.formatted(date: .omitted, time: .shortened)), \(roll.date.formatted(date: .abbreviated, time: .omitted))")
+                            .accessibilityHint("Result was \(roll.total)")
                         }
                         .onDelete(perform: removeRows)
                     }
                 }
             }
             .toolbar {
-                Button {
-                    dismiss()
-                } label: {
-                    Text("OK")
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if voiceOverEnabled {
+                        Button {
+                            viewModel.deleteAllRolls()
+                        } label: {
+                            Text("Delete all rolls")
+                        }
+                    } else if (!viewModel.rolls.isEmpty) {
+                        EditButton()
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("OK")
+                    }
                 }
             }
         }
