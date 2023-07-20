@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension ChangeDiceView {
     @MainActor class ViewModel: ObservableObject {
         func createRollWith(numberOfDice: Int, numberOfSides: Int) -> Roll {

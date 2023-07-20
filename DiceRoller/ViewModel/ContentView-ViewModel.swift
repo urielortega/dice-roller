@@ -23,9 +23,18 @@ extension ContentView {
             }
         }
         
-        func updateRolls(with roll: Roll) { // Activated when Roll! button is pressed.
+        func updateRolls(with roll: Roll) {
             rolls.append(roll)
             save()
+        }
+        
+        func updateData() {
+            do {
+                let data = try Data(contentsOf: savePath)
+                rolls = try JSONDecoder().decode([Roll].self, from: data)
+            } catch {
+                rolls = []
+            }
         }
 
         func save() {

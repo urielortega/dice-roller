@@ -23,13 +23,16 @@ struct ResultsView: View {
                             .foregroundColor(.secondary)
                     }
                 } else {
-                    List(viewModel.rolls) { roll in
-                        VStack(alignment: .leading) {
-                            Text("Roll created at \(roll.date.formatted(date: .abbreviated, time: .shortened))")
-                            Text("Total: \(roll.total)")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
+                    List {
+                        ForEach(viewModel.rolls) { roll in
+                            VStack(alignment: .leading) {
+                                Text("Roll created at \(roll.date.formatted(date: .abbreviated, time: .shortened))")
+                                Text("Total: \(roll.total)")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
                         }
+                        .onDelete(perform: removeRows)
                     }
                 }
             }
@@ -41,6 +44,11 @@ struct ResultsView: View {
                 }
             }
         }
+    }
+    
+    func removeRows(at offsets: IndexSet) {
+        viewModel.rolls.remove(atOffsets: offsets)
+        viewModel.save()
     }
 }
 

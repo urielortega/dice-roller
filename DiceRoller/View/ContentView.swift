@@ -40,7 +40,15 @@ struct ContentView: View {
                 Spacer()
                 
                 Button {
+                    // Load data to keep it consistent with the rest of the screens.
+                    viewModel.updateData()
+
+                    // Change currentRoll with a new Roll (new UUID) to avoid ID duplicates.
+                    currentRoll.update(with: Roll(dice: currentRoll.roll.dice))
                     currentRoll.roll.rollAllDice()
+                    
+                    // Append the new currentRoll.
+                    viewModel.updateRolls(with: currentRoll.roll)
                 } label: {
                     Text("Roll!")
                         .frame(maxWidth: .infinity, maxHeight: 60)
