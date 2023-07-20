@@ -30,7 +30,6 @@ struct Roll: Identifiable, Codable {
     mutating func rollAllDice() {
         for index in dice.indices {
             dice[index].rollIt()
-            print(dice[index].result)
         }
     }
     

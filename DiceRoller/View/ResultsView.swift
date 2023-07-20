@@ -19,7 +19,7 @@ struct ResultsView: View {
                         Image(systemName: "die.face.3.fill")
                             .padding()
                             .foregroundColor(.secondary)
-                        Text("You haven't rolled any dice yet")
+                        Text("Roll to see your results here!")
                             .foregroundColor(.secondary)
                     }
                 } else {

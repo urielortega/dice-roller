@@ -15,6 +15,8 @@ struct ContentView: View {
     
     @State private var showingChangeDiceView = false
     @State private var showingResultsView = false
+    
+    @State private var feedback = UINotificationFeedbackGenerator()
 
     var body: some View {
         NavigationStack {
@@ -49,6 +51,8 @@ struct ContentView: View {
                     
                     // Append the new currentRoll.
                     viewModel.updateRolls(with: currentRoll.roll)
+                    
+                    feedback.notificationOccurred(.success)
                 } label: {
                     Text("Roll!")
                         .frame(maxWidth: .infinity, maxHeight: 60)
@@ -89,6 +93,9 @@ struct ContentView: View {
             }
         }
         .environmentObject(currentRoll) // 2. Post the property into the SwiftUI environment.
+        .onAppear {
+            feedback.prepare()
+        }
     }
 }
 
