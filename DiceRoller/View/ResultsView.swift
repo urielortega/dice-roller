@@ -31,8 +31,8 @@ struct ResultsView: View {
                         ForEach(viewModel.rolls) { roll in
                             VStack(alignment: .leading) {
                                 Text("Roll created at \(roll.date.formatted(date: .abbreviated, time: .shortened))")
+                                    .font(.headline)
                                 Text("Result: \(roll.total)")
-                                    .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
                             .accessibilityElement()
